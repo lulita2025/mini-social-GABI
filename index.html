@@ -160,14 +160,15 @@ buttons.forEach((btn) => {
     const countSpan = btn.nextElementSibling;
     let count = parseInt(countSpan.innerText);
 
-    if (btn.classList.contains("liked")) {
-      count--;
-      btn.classList.remove("liked");
-      btn.innerText = "❤️ Curtir";
-    } else {
+    // alterna entre curtir e descurtir no mesmo botão
+    const liked = btn.classList.toggle("liked");
+
+    if (liked) {
       count++;
-      btn.classList.add("liked");
       btn.innerText = "💙 Curtido";
+    } else {
+      count--;
+      btn.innerText = "❤️ Curtir";
     }
 
     countSpan.innerText = count;
