@@ -11,7 +11,6 @@ body {
   margin: 0;
 }
 
-/* HEADER */
 header {
   background: #1877f2;
   color: white;
@@ -19,13 +18,11 @@ header {
   text-align: center;
 }
 
-/* FEED */
 .feed {
   max-width: 500px;
   margin: 20px auto;
 }
 
-/* POST */
 .post {
   background: white;
   padding: 15px;
@@ -34,7 +31,6 @@ header {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* HEADER POST */
 .post-header {
   display: flex;
   align-items: center;
@@ -53,7 +49,6 @@ header {
 
 .name {
   font-weight: bold;
-  display: block;
 }
 
 .username {
@@ -61,29 +56,30 @@ header {
   font-size: 14px;
 }
 
-/* TEXTO */
 .post-text {
   margin: 15px 0;
 }
 
-/* BOTÃO */
 .post-actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.likeBtn {
+/* BOTÕES */
+button {
   border: none;
-  background: #e4e6eb;
   padding: 8px 12px;
   border-radius: 20px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.likeBtn:hover {
-  background: #d8dadf;
+.likeBtn {
+  background: #e4e6eb;
+}
+
+.dislikeBtn {
+  background: #e4e6eb;
 }
 
 .liked {
@@ -91,15 +87,9 @@ header {
   color: white;
 }
 
-/* COMENTÁRIOS */
-.comments {
-  margin-top: 15px;
-}
-
-.comment {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
+.disliked {
+  background: #f02849;
+  color: white;
 }
 </style>
 
@@ -118,7 +108,7 @@ header {
     <div class="post-header">
       <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="avatar">
       <div>
-        <span class="name">gabis</span>
+        <span class="name">gabis</span><br>
         <span class="username">@gabizao</span>
       </div>
     </div>
@@ -128,47 +118,66 @@ header {
     </p>
 
     <div class="post-actions">
-      <button class="likeBtn">❤️ Curtir</button>
+      <button class="likeBtn">👍 Curtir</button>
+      <button class="dislikeBtn">👎 Descurtir</button>
       <span class="likeCount">0</span>
     </div>
-
-    <section class="comments">
-
-      <div class="comment">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="avatar-small">
-        <p>vamos lá meninas! 🔥</p>
-      </div>
-
-      <div class="comment">
-        <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="avatar-small">
-        <p>
-          Bota a mão na chapa! Primeiro pegue o pão, passe manteiga e leve à frigideira até dourar. Bom apetite 😍
-        </p>
-      </div>
-
-    </section>
 
   </article>
 
 </main>
 
 <script>
-const buttons = document.querySelectorAll(".likeBtn");
+const posts = document.querySelectorAll(".post");
 
-buttons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const countSpan = btn.nextElementSibling;
-    let count = parseInt(countSpan.innerText);
+posts.forEach((post) => {
+  const likeBtn = post.querySelector(".likeBtn");
+  const dislikeBtn = post.querySelector(".dislikeBtn");
+  const countSpan = post.querySelector(".likeCount");
 
-    // alterna entre curtir e descurtir no mesmo botão
-    const liked = btn.classList.toggle("liked");
+  let count = 0;
+  let liked = false;
+  let disliked = false;
 
-    if (liked) {
+  likeBtn.addEventListener("click", () => {
+    if (!liked) {
       count++;
-      btn.innerText = "💙 Curtido";
+      liked = true;
+      likeBtn.classList.add("liked");
+
+      // se estava descurtido, remove
+      if (disliked) {
+        disliked = false;
+        dislikeBtn.classList.remove("disliked");
+        count++;
+      }
+
     } else {
       count--;
-      btn.innerText = "❤️ Curtir";
+      liked = false;
+      likeBtn.classList.remove("liked");
+    }
+
+    countSpan.innerText = count;
+  });
+
+  dislikeBtn.addEventListener("click", () => {
+    if (!disliked) {
+      count--;
+      disliked = true;
+      dislikeBtn.classList.add("disliked");
+
+      // se estava curtido, remove
+      if (liked) {
+        liked = false;
+        likeBtn.classList.remove("liked");
+        count--;
+      }
+
+    } else {
+      count++;
+      disliked = false;
+      dislikeBtn.classList.remove("disliked");
     }
 
     countSpan.innerText = count;
