@@ -1,57 +1,50 @@
 <script>
-let likeCount = 0;
-let curtido = false;
-let descurtido = false;
-
-const likeBtn = document.querySelector(".likeBtn");
 const dislikeBtn = document.querySelector(".dislikeBtn");
 const countSpan = document.querySelector(".likeCount");
 
-function atualizar() {
-  countSpan.innerText = likeCount;
-}
+let count = 0;
+let liked = false;
+let disliked = false;
 
-likeBtn.addEventListener("click", () => {
-  if (!curtido) {
-    likeCount++;
-    curtido = true;
+likeBtn.onclick = () => {
+  if (!liked) {
+    liked = true;
+    disliked = false;
+
     likeBtn.classList.add("liked");
+    dislikeBtn.classList.remove("disliked");
 
-    // se estava descurtido, remove
-    if (descurtido) {
-      descurtido = false;
-      dislikeBtn.classList.remove("disliked");
-      likeCount++;
-    }
-
+    count = count + 1;
   } else {
-    likeCount--;
-    curtido = false;
+    liked = false;
     likeBtn.classList.remove("liked");
+
+    count = count - 1;
   }
 
-  atualizar();
-});
+  // trava anti negativo
+  if (count < 0) count = 0;
 
-dislikeBtn.addEventListener("click", () => {
-  if (!descurtido) {
-    likeCount--;
-    descurtido = true;
+  countSpan.innerText = count;
+};
+
+dislikeBtn.onclick = () => {
+  if (!disliked) {
+    disliked = true;
+    liked = false;
+
     dislikeBtn.classList.add("disliked");
+    likeBtn.classList.remove("liked");
 
-    // se estava curtido, remove
-    if (curtido) {
-      curtido = false;
-      likeBtn.classList.remove("liked");
-      likeCount--;
-    }
-
+    // NÃO mexe no número
   } else {
-    likeCount++;
-    descurtido = false;
+    disliked = false;
     dislikeBtn.classList.remove("disliked");
   }
 
-  atualizar();
-});
+  // trava anti negativo
+  if (count < 0) count = 0;
+
+  countSpan.innerText = count;
+};
 </script>
