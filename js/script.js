@@ -45,4 +45,4 @@ dislikeBtn.addEventListener("click", function() {
   }
 
   countSpan.textContent = count;
-});
+});|
