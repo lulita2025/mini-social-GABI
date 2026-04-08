@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(120deg, #f0f2f5, #e0e7ff);
+  background: #f0f2f5;
   margin: 0;
 }
 
@@ -19,9 +19,9 @@ header {
 .post {
   background: white;
   padding: 15px;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .post-header {
@@ -59,7 +59,6 @@ button {
   padding: 8px 12px;
   border-radius: 20px;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .likeBtn {

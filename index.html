@@ -100,8 +100,7 @@ button {
   <article class="post">
 
     <div class="post-header">
-      <!-- saimon -->
-     <img src="https://www.kindpng.com/picc/m/21-215214_dibujos-animados-png-images-simon-alvin-e-os.png" class="avatar">
+      <img src="https://www.kindpng.com/picc/m/21-215214_dibujos-animados-png-images-simon-alvin-e-os.png" class="avatar">
 
       <div>
         <span class="name">saimon</span><br>
@@ -114,20 +113,24 @@ button {
     </p>
 
     <div class="post-actions">
-      <button class="likeBtn">👍 Curtir</button>
-      <button class="dislikeBtn">👎 Descurtir</button>
-      <span class="likeCount">0</span>
+      <button class="likeBtn">👍<span class="likeCount">0</span> Curtir</button>
+<button class="dislikeBtn">👎<span class="dislikeCount">0</span> Descurtir</button>
     </div>
 
   </article>
 
 </main>
+
 <script>
 const likeBtn = document.querySelector(".likeBtn");
 const dislikeBtn = document.querySelector(".dislikeBtn");
-const countSpan = document.querySelector(".likeCount");
 
-let count = 0;
+const likeCountSpan = document.querySelector(".likeCount");
+const dislikeCountSpan = document.querySelector(".dislikeCount");
+
+let likeCount = 0;
+let dislikeCount = 0;
+
 let liked = false;
 let disliked = false;
 
@@ -136,20 +139,22 @@ likeBtn.addEventListener("click", function() {
   if (!liked) {
     liked = true;
     likeBtn.classList.add("liked");
-    count++;
+    likeCount++;
 
     if (disliked) {
       disliked = false;
       dislikeBtn.classList.remove("disliked");
+      dislikeCount--;
     }
 
   } else {
     liked = false;
     likeBtn.classList.remove("liked");
-    count--;
+    likeCount--;
   }
 
-  countSpan.textContent = count;
+  likeCountSpan.textContent = likeCount;
+  dislikeCountSpan.textContent = dislikeCount;
 });
 
 dislikeBtn.addEventListener("click", function() {
@@ -157,19 +162,22 @@ dislikeBtn.addEventListener("click", function() {
   if (!disliked) {
     disliked = true;
     dislikeBtn.classList.add("disliked");
+    dislikeCount++;
 
     if (liked) {
       liked = false;
       likeBtn.classList.remove("liked");
-      count--;
+      likeCount--;
     }
 
   } else {
     disliked = false;
     dislikeBtn.classList.remove("disliked");
+    dislikeCount--;
   }
 
-  countSpan.textContent = count;
+  likeCountSpan.textContent = likeCount;
+  dislikeCountSpan.textContent = dislikeCount;
 });
 </script>
 
