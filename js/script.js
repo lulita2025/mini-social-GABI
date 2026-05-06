@@ -1,61 +1,86 @@
-document.addEventListener("DOMContentLoaded", function() {
+//=== BANCO DE DADOS (JSON simulado) === 
 
-const likeBtn = document.querySelector(".likeBtn");
-const dislikeBtn = document.querySelector(".dislikeBtn");
+let post = {
+   likeCount: 0,
+   dislikeCount: 0,
+   curtido: false,
+   descurtido: false
+}
 
-const likeCountSpan = document.querySelector(".likeCount");
-const dislikeCountSpan = document.querySelector(".dislikeCount");
+//=== SERVICE (regras de negócio) === 
 
-let likeCount = 0;
-let dislikeCount = 0;
+function curtir() {
+  if (post.curtido == false){
+    post.likeCount++;
+    post.curtido = true;
 
-let liked = false;
-let disliked = false;
-
-likeBtn.addEventListener("click", function() {
-
-  if (!liked) {
-    liked = true;
-    likeBtn.classList.add("liked");
-    likeCount++;
-
-    if (disliked) {
-      disliked = false;
-      dislikeBtn.classList.remove("disliked");
-      dislikeCount--;
+    if(post.descurtido == true){
+      post.dislikeCount--;
+      post.descurtido = false;
     }
 
-  } else {
-    liked = false;
-    likeBtn.classList.remove("liked");
-    likeCount--;
+  }else{
+    post.likeCount--;
+    post.curtido = false;
   }
 
-  likeCountSpan.textContent = likeCount;
-  dislikeCountSpan.textContent = dislikeCount;
-});
+}
 
-dislikeBtn.addEventListener("click", function() {
+function descurtir() {
+  if(post.descurtido == false){
+    post.dislikeCount++;
+    post.descurtido = true;
 
-  if (!disliked) {
-    disliked = true;
-    dislikeBtn.classList.add("disliked");
-    dislikeCount++;
-
-    if (liked) {
-      liked = false;
-      likeBtn.classList.remove("liked");
-      likeCount--;
+    if(post.curtido == true){
+      post.likeCount--;
+      post.curtido = false;
     }
 
-  } else {
-    disliked = false;
-    dislikeBtn.classList.remove("disliked");
-    dislikeCount--;
   }
+  else{
+    post.dislikeCount--;
+    post.descurtido = false;
+  }
+}
 
-  likeCountSpan.textContent = likeCount;
-  dislikeCountSpan.textContent = dislikeCount;
-});
+//=== API SIMULADA ===
 
-});
+function getPost(){
+   return post;
+}
+
+function likepost(){
+   curtir();
+   return post;
+}
+
+function dislikePost(){
+   descurtir();
+   return post;
+}
+
+// === VIEW (interface/renderização)===
+function atualizarTela(){
+  document.getElementById("likeCount").innerText = likeCount;
+  document.getElementById("dislikeCount").innerText = dislikeCount;
+}
+
+//=== CONTROLLER (intermediação)===
+
+function clicarCurtir(){
+  curtir();
+  atualizarTela();
+}
+function clicarDescurtir(){
+  descurtir();
+  atualizarTela();
+}
+
+// === EVENTOS ===
+
+document.getElementById("likeBtn").addEventListener("click", clicarCurtir);
+document.getElementById("dislikeBtn").addEventListener("click", clicarDescurtir);
+
+// === INICIALIZAÇÃO ===  
+
+atualizarTela();

@@ -12,7 +12,7 @@ body {
 }
 
 header {
-  background: #6c5ce7;
+  background: #148aeb;
   color: white;
   padding: 15px;
   text-align: center;
@@ -69,20 +69,20 @@ button {
 }
 
 .likeBtn {
-  background: #dfe6e9;
+  background: #0984b9;
 }
 
 .dislikeBtn {
-  background: #dfe6e9;
+  background: #0678a8;
 }
 
 .liked {
-  background: #6c5ce7;
+  background: #7abfff;
   color: white;
 }
 
 .disliked {
-  background: #d63031;
+  background: #d6303071;
   color: white;
 }
 </style>
@@ -92,7 +92,7 @@ button {
 <body>
 
 <header>
-  <h1>Mini Social 💜</h1>
+  <h1>Mini Social 💙 </h1>
 </header>
 
 <main class="feed">
@@ -100,7 +100,7 @@ button {
   <article class="post">
 
     <div class="post-header">
-      <img src="https://www.kindpng.com/picc/m/21-215214_dibujos-animados-png-images-simon-alvin-e-os.png" class="avatar">
+      <img src="https://www.stickpng.com/pt-br/img/roupas/desenhos-animados/alvin-e-os-esquilos/alvin-e-os-esquilos-simon-fazendo-sinal-de-paz" class="avatar">
 
       <div>
         <span class="name">saimon</span><br>
@@ -109,77 +109,33 @@ button {
     </div>
 
     <p class="post-text">
-      Hoje foi dia de pão na chapa e um pouco de drama 👩‍💻🔥
+      Coração leve e alma tranquila 💙 
     </p>
 
     <div class="post-actions">
-      <button class="likeBtn">👍<span class="likeCount">0</span> Curtir</button>
-<button class="dislikeBtn">👎<span class="dislikeCount">0</span> Descurtir</button>
+      <button id="likeBtn">👍 Curtir</button>
+      <span id="likeCount">0</span>
     </div>
+
+    <div class="post-actions">
+      <button id="deslikeBtn">👎🏽  descurtir</button>
+      <span id="deslikeCount">0</span>
+    </div>
+
+    <section class="comments">
+      <div class="comment">
+        <p>Acredite que você pode, assim você já está no meio do caminho🔥</p>
+      </div>
+
+      <div class="comment">
+        <p>alegria!</p>
+      </div>
+    </section>
 
   </article>
 
 </main>
 
-<script>
-const likeBtn = document.querySelector(".likeBtn");
-const dislikeBtn = document.querySelector(".dislikeBtn");
-
-const likeCountSpan = document.querySelector(".likeCount");
-const dislikeCountSpan = document.querySelector(".dislikeCount");
-
-let likeCount = 0;
-let dislikeCount = 0;
-
-let liked = false;
-let disliked = false;
-
-likeBtn.addEventListener("click", function() {
-
-  if (!liked) {
-    liked = true;
-    likeBtn.classList.add("liked");
-    likeCount++;
-
-    if (disliked) {
-      disliked = false;
-      dislikeBtn.classList.remove("disliked");
-      dislikeCount--;
-    }
-
-  } else {
-    liked = false;
-    likeBtn.classList.remove("liked");
-    likeCount--;
-  }
-
-  likeCountSpan.textContent = likeCount;
-  dislikeCountSpan.textContent = dislikeCount;
-});
-
-dislikeBtn.addEventListener("click", function() {
-
-  if (!disliked) {
-    disliked = true;
-    dislikeBtn.classList.add("disliked");
-    dislikeCount++;
-
-    if (liked) {
-      liked = false;
-      likeBtn.classList.remove("liked");
-      likeCount--;
-    }
-
-  } else {
-    disliked = false;
-    dislikeBtn.classList.remove("disliked");
-    dislikeCount--;
-  }
-
-  likeCountSpan.textContent = likeCount;
-  dislikeCountSpan.textContent = dislikeCount;
-});
-</script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
